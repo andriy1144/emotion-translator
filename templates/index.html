@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-перекладач емоцій</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>🎭 AI-перекладач емоцій</h1>
+      <p class="sub">Напишіть кілька речень — ШІ визначить емоцію у вашому тексті та дасть пораду.</p>
+    </header>
+
+    <section class="card">
+      <label for="text" class="visually-hidden">Ваш текст</label>
+      <textarea id="text" rows="5" maxlength="{{ max_len }}"
+        placeholder="Наприклад: Сьогодні я склав іспит, і я такий щасливий!"></textarea>
+      <div class="row">
+        <span class="counter"><span id="count">0</span> / {{ max_len }}</span>
+        <button id="go" type="button">Визначити емоцію</button>
+      </div>
+      <div class="chips" aria-label="Приклади">
+        <span>Спробуйте:</span>
+        <button type="button" class="chip">Сьогодні я склав іспит, і я такий щасливий!</button>
+        <button type="button" class="chip">Мені так сумно і самотньо після переїзду...</button>
+        <button type="button" class="chip">Мене дуже бісить, що знову всі запізнилися!</button>
+        <button type="button" class="chip">Я боюся завтрашньої презентації, дуже хвилююся.</button>
+        <button type="button" class="chip">Вау, я не очікував такого сюрпризу!</button>
+      </div>
+    </section>
+
+    <div id="error" class="error" role="alert" hidden></div>
+
+    <section id="result" class="card result" hidden aria-live="polite">
+      <div class="top">
+        <div id="emoji" class="emoji">😐</div>
+        <div>
+          <div id="label" class="label"></div>
+          <div id="conf" class="conf"></div>
+        </div>
+      </div>
+      <p id="headline" class="headline"></p>
+      <p id="advice"></p>
+      <blockquote id="quote"></blockquote>
+      <p id="translated" class="note" hidden></p>
+      <h2>Розподіл емоцій</h2>
+      <ul id="bars" class="bars"></ul>
+    </section>
+
+    <footer>
+      Рушій: <b>{{ engine_name }}</b> — {{ engine_desc }}. Це навчальний прототип, а не медична порада.
+    </footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
